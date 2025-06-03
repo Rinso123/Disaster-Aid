@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+
+<body class="container">
+
+  <%- include('../../partials/header', { user: user}); %>
+
+    <main>
+      <div class="container">
+        <h1>Create an Offer</h1>
+        <form action="/api/offers" method="POST" class="flex flex-col">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Description</label>
+            <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="description"
+              required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="type" class="form-label">Help Type</label>
+            <select class="form-select" id="type" name="helpType" required>
+              <option value="food">Food</option>
+              <option value="shelter">Shelter</option>
+              <option value="medicine">Medicine</option>
+            </select>
+          </div>
+          <input name="location" id="location" type="hidden" required>
+          <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Create Offer</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <%- include('../../partials/footer'); %>
+    </footer>
+    <script src="/js/register.js"></script>
+
+</body>
+
+</html>

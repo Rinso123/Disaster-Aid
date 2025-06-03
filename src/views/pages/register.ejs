@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+  <%- include('../partials/header', { user: null}); %>
+
+    <main>
+      <div class="container">
+        <form action="/api/auth/register" method="POST" class="flex flex-col">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" name="name" id="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="pasword" class="form-control" id="exampleInputPassword1" name="password" required>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Role</label>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="role" value="volunteer" id="radioDefault1" required>
+              <label class="form-check-label" for="radioDefault1">
+                Volunteer
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="role" id="radioDefault2" value="victim" checked
+                required>
+              <label class="form-check-label" for="radioDefault2">
+                Victim
+              </label>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="location">Your Location (lat,lon):</label>
+              <input type="text" id="location" class="form-control" name="location" readonly required
+                placeholder="Fetching location…" />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+      </div>
+
+    </main>
+
+    <footer>
+      <%- include('../partials/footer'); %>
+    </footer>
+    <script src="/js/register.js"></script>
+</body>
+
+</html>
