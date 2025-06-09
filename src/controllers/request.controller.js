@@ -47,7 +47,8 @@ export const accept = async (req, res) => {
 
   await Request.updateOne({ _id: id }, {
     $set: {
-      status: "fulfilled"
+      status: "fulfilled",
+      provider: req.user.id
     }
   })
 
@@ -55,3 +56,7 @@ export const accept = async (req, res) => {
 
 }
 
+export const getSelfRequest = async (userId) => {
+  const data = await Request.find({ user: userId }).populate("provider").lean();
+  return data;
+}

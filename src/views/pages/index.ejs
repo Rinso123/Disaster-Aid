@@ -23,7 +23,25 @@
               <div class="gap-4 d-flex" id="requests"></div>
             </div>
           </div>
-          <% }%>
+          <% } else if(user?.role==="admin" ) {%>
+            <div class="container my-5 ">
+              <div class="p-5 text-center bg-body-tertiary rounded-3">
+                <h2 class="text-body-emphasis">Admin Dashboard</h2>
+                <div class="gap-4 d-flex">
+                  <a href="/admin/requests" class="btn btn-primary">Requests</a>
+                  <a href="/admin/offers" class="btn btn-primary">Offers</a>
+                  <a href="/admin/users" class="btn btn-primary">Users</a>
+                </div>
+              </div>
+            </div>
+            <% } else { %>
+              <div class="container my-5">
+                <div class="p-5 h-48  text-center bg-body-tertiary rounded-3">
+                  <h2 class="text-body-emphasis">This is disaster aid</h2>
+                  <div id="offers" class="d-flex gap-4"></div>
+                </div>
+              </div>
+              <% } %>
     </main>
 
     <footer>

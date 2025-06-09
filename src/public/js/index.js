@@ -7,12 +7,12 @@ const setLocation = () => {
 
   // Options: highAccuracy off, 10-second timeout, no caching
   const geoOptions = {
-    enableHighAccuracy: false,
+    enableHighAccuracy: true,
     timeout: 10000,
-    maximumAge: 0
+    maximumAge: 10000
   };
 
-  navigator.geolocation.getCurrentPosition(
+  navigator.geolocation.watchPosition(
     (position) => {
       const lat = position.coords.latitude.toFixed(6);
       const lon = position.coords.longitude.toFixed(6);
@@ -129,31 +129,9 @@ const setRequests = async () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   setLocation();
-  setInterval(setLocation, 60 * 1000);
 
   setTimeout(setRequests, 2000);
   setTimeout(setOffers, 2000);
-
-  document.getElementById("offers").addEventListener("click", async (e) => {
-    const id = e.target.dataset.id;
-    const res = await fetch(`/api/offers/${id}/accept`, {
-      method: "POST"
-    });
-    if (res.ok) {
-      setOffers();
-    }
-  });
-
-  document.getElementById("requests").addEventListener("click", async (e) => {
-    const id = e.target.dataset.id;
-
-    const res = await fetch(`/api/requests/${id}/accept`, {
-      method: "POST",
-    });
-    if (res.ok) {
-      setRequests();
-    }
-  });
 
 
   const socket = io("/", {
@@ -179,5 +157,33 @@ document.addEventListener("DOMContentLoaded", () => {
   socket.on("newOffer", (_) => {
     setOffers();
   });
+
+  try {
+
+    document.getElementById("offers").addEventListener("click", async (e) => {
+      const id = e.target.dataset.id;
+      const res = await fetch(`/api/offers/${id}/accept`, {
+        method: "POST"
+      });
+      if (res.ok) {
+        setOffers();
+      }
+    });
+  } catch (err) {
+  }
+  try {
+    document.getElementById("requests").addEventListener("click", async (e) => {
+      const id = e.target.dataset.id;
+
+      const res = await fetch(`/api/requests/${id}/accept`, {
+        method: "POST",
+      });
+      if (res.ok) {
+        setRequests();
+      }
+    });
+
+  } catch (err) {
+  }
 
 })

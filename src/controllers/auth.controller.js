@@ -35,8 +35,6 @@ export const login = async (req, res) => {
   if (!user || !await bcrypt.compare(password, user.password))
     return res.status(401).json({ message: 'Invalid credentials' });
 
-  res.json({
-    user: { id: user._id, name: user.name, email: user.email, role: user.role },
-    token: genToken(user._id)
-  });
+  res.cookie("Authorization", `Bearer ${genToken(user._id)}`);
+  res.redirect("/")
 };

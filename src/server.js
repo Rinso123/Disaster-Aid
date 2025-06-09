@@ -9,6 +9,7 @@ dotenv.config();
 const server = http.createServer(app);
 import { Server as IOServer } from 'socket.io';
 import { log } from 'console';
+import { initAdmin } from './controllers/admin.controller.js';
 const io = new IOServer(server, { cors: { origin: '*' } });
 
 app.set('io', io);
@@ -37,6 +38,7 @@ io.on('connection', async socket => {
 });
 
 connectDB().then(() => {
+  initAdmin();
   server.listen(process.env.PORT || 4000, () =>
     console.log(`Server running on port ${process.env.PORT || 4000}`)
   );

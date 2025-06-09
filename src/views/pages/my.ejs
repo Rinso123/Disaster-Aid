@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+  <%- include('../partials/header', { user: user}); %>
+
+    <main>
+      <% if(user?.role==="victim" ) {%>
+        <div class="container my-5">
+          <div class="p-5 h-48  text-center bg-body-tertiary rounded-3">
+            <h2 class="text-body-emphasis">Your Requests</h2>
+            <div id="requests" class="d-flex gap-4">
+              <table class="table table-sthiped">
+                <thead>
+                  <th>Help Type</th>
+                  <th>Description</th>
+                  <th>Provided By</th>
+                </thead>
+                <tbody>
+                  <% requests.forEach(function(request) { %>
+                    <tr>
+                      <td>
+                        <%= request.helpType %>
+                      </td>
+                      <td>
+                        <%= request.description %>
+                      </td>
+                      <td>
+                        <% if (request.provider ) {%>
+                          <%= request.provider.name %> , <%= request.provider.email %>
+                              <% } else {%>
+                                N/A
+                                <%}%>
+                      </td>
+                    </tr>
+                    <% } )%>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <% } else if(user?.role==="volunteer" ) {%>
+          <div class="container my-5 ">
+            <div class="p-5 text-center bg-body-tertiary rounded-3">
+              <h2 class="text-body-emphasis">Your Offers</h2>
+              <div class="gap-4 d-flex" id="offers">
+                <table class="table table-sthiped">
+                  <thead>
+                    <th>Help Type</th>
+                    <th>Description</th>
+                    <th>Received By</th>
+                  </thead>
+
+                  <tbody>
+                    <% offers.forEach(function(offer) { %>
+                      <tr>
+                        <td>
+                          <%= offer.helpType %>
+                        </td>
+                        <td>
+                          <%= offer.description %>
+                        </td>
+
+                        <td>
+                          <% if (offer.receiver ) {%>
+                            <%= offer.receiver.name %> , <%= offer.receiver.email %>
+                                <% } else {%>
+                                  N/A
+                                  <%}%>
+                        </td>
+                      </tr>
+                      <% } )%>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <% } %>
+    </main>
+
+    <footer>
+      <%- include('../partials/footer'); %>
+    </footer>
+
+    <script src="/js/index.js"></script>
+</body>
+
+</html>

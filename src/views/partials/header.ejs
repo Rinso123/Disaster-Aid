@@ -18,6 +18,9 @@
     </div>
     <% } else { %>
       <div class="col-md-3 text-end">
+        <a href="/my">
+          <button type="button" class="btn btn-outline-primary me-2">My Dashboard</button>
+        </a>
         <% if (user?.role=="volunteer" ) { %>
           <a href="/create/offer">
             <button type="button" class="btn btn-outline-primary me-2">+ Offer</button>

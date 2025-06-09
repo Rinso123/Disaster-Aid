@@ -43,7 +43,8 @@ export const accept = async (req, res) => {
 
   await Offer.updateOne({ _id: id }, {
     $set: {
-      status: "accepted"
+      status: "accepted",
+      receiver: req.user.id
     }
   })
 
@@ -51,3 +52,7 @@ export const accept = async (req, res) => {
 };
 
 
+export const getSelfOffers = async (userId) => {
+  const data = await Offer.find({ provider: userId }).populate("receiver").lean();
+  return data;
+}
