@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+
+<body class="container">
+  <%- include('../../partials/header', { user: user}); %>
+
+    <main>
+      <div class="container my-5 ">
+        <div class="p-5 text-center bg-body-tertiary rounded-3">
+          <h2 class="text-body-emphasis">All Offers</h2>
+          <div class="gap-4 d-flex">
+            <table class="table table-sthiped">
+              <thead>
+                <th>Help Type</th>
+                <th>Description</th>
+                <th>Provided By</th>
+                <th>Received By</th>
+                <th>Actions</th>
+              </thead>
+
+              <tbody>
+                <% offers.forEach(function(offer) { %>
+                  <tr>
+                    <td>
+                      <%= offer.helpType %>
+                    </td>
+                    <td>
+                      <%= offer.description %>
+                    </td>
+
+                    <td>
+                      <% if (offer.provider ) {%>
+                        <%= offer.provider.name %> , <%= offer.provider.email %>
+                            <% } else {%>
+                              N/A
+                              <%}%>
+                    </td>
+                    <td>
+                      <% if (offer.receiver ) {%>
+                        <%= offer.receiver.name %> , <%= offer.receiver.email %>
+                            <% } else {%>
+                              N/A
+                              <%}%>
+                    </td>
+                    <td>
+                      <form method="POST" action="/admin/offers/<%= offer._id %>">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                      </form>
+                    </td>
+                  </tr>
+                  <% } )%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <%- include('../../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>

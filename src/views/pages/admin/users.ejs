@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+
+<body class="container">
+  <%- include('../../partials/header', { user: user}); %>
+
+    <main>
+      <div class="container my-5 ">
+        <div class="p-5 text-center bg-body-tertiary rounded-3">
+          <h2 class="text-body-emphasis">All Users</h2>
+          <div class="gap-4 d-flex">
+            <table class="table table-sthiped">
+              <thead>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Location</th>
+                <th>Action</th>
+              </thead>
+
+              <tbody>
+                <% users.forEach(function(user) { %>
+                  <tr>
+                    <td>
+                      <%= user.name %>
+                    </td>
+                    <td>
+                      <%= user.email %>
+                    </td>
+
+                    <td>
+                      <%= user.role %>
+                    </td>
+                    <td>
+                      <%= user.location.coordinates[0] %> , <%= user.location.coordinates[1] %>
+                    </td>
+                    <td>
+                      <form method="POST" action="/admin/users/<%= user._id %>">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                      </form>
+                    </td>
+                  </tr>
+                  <% } )%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <%- include('../../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>
